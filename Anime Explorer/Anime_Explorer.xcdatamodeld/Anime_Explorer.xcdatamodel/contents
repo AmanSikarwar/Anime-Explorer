@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1"
+    systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift"
+    usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
+    <entity name="FavoriteAnime" representedClassName="FavoriteAnime" syncable="YES"
+        codeGenerationType="class">
+        <attribute name="malId" attributeType="Integer 64" defaultValueString="0"
+            usesScalarValueType="YES" />
+        <attribute name="title" optional="YES" attributeType="String" />
+        <attribute name="imageUrl" optional="YES" attributeType="String" />
+        <attribute name="score" optional="YES" attributeType="Double" defaultValueString="0.0"
+            usesScalarValueType="YES" />
+        <attribute name="episodes" optional="YES" attributeType="Integer 64" defaultValueString="0"
+            usesScalarValueType="YES" />
+        <attribute name="synopsis" optional="YES" attributeType="String" />
+        <attribute name="genres" optional="YES" attributeType="String" />
+        <attribute name="rating" optional="YES" attributeType="String" />
+        <attribute name="status" optional="YES" attributeType="String" />
+        <attribute name="type" optional="YES" attributeType="String" />
+        <attribute name="addedDate" optional="YES" attributeType="Date" usesScalarValueType="NO" />
     </entity>
     <elements>
-        <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
+        <element name="FavoriteAnime" positionX="-63" positionY="-18" width="128" height="194" />
     </elements>
 </model>

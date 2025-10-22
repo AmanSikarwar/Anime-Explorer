@@ -14,18 +14,7 @@ struct PersistenceController {
     static let preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for _ in 0..<10 {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-        }
-        do {
-            try viewContext.save()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
+        // Preview data can be added here if needed
         return result
     }()
 
@@ -53,5 +42,58 @@ struct PersistenceController {
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
+    }
+    
+    // MARK: - Favorites Management
+    
+    func addToFavorites(anime: Anime, context: NSManagedObjectContext) {
+        let favorite = FavoriteAnime(context: context)
+        favorite.malId = Int64(anime.malId)
+        favorite.title = anime.displayTitle
+        favorite.imageUrl = anime.imageURL
+        favorite.score = anime.score ?? 0
+        favorite.episodes = Int64(anime.episodes ?? 0)
+        favorite.synopsis = anime.synopsis
+        favorite.genres = anime.genresList
+        favorite.rating = anime.rating
+        favorite.status = anime.status
+        favorite.type = anime.type
+        favorite.addedDate = Date()
+        
+        do {
+            try context.save()
+        } catch {
+            let nsError = error as NSError
+            print("Error saving favorite: \(nsError), \(nsError.userInfo)")
+        }
+    }
+    
+    func removeFromFavorites(malId: Int, context: NSManagedObjectContext) {
+        let fetchRequest: NSFetchRequest<FavoriteAnime> = FavoriteAnime.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "malId == %d", malId)
+        
+        do {
+            let results = try context.fetch(fetchRequest)
+            for favorite in results {
+                context.delete(favorite)
+            }
+            try context.save()
+        } catch {
+            let nsError = error as NSError
+            print("Error removing favorite: \(nsError), \(nsError.userInfo)")
+        }
+    }
+    
+    func isFavorite(malId: Int, context: NSManagedObjectContext) -> Bool {
+        let fetchRequest: NSFetchRequest<FavoriteAnime> = FavoriteAnime.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "malId == %d", malId)
+        fetchRequest.fetchLimit = 1
+        
+        do {
+            let count = try context.count(for: fetchRequest)
+            return count > 0
+        } catch {
+            return false
+        }
     }
 }
