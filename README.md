@@ -72,6 +72,6 @@ Uses Jikan API v4 ([https://api.jikan.moe/v4](https://api.jikan.moe/v4)), an uno
 
 ### Screenshots
 
-![Browse View](Screenshots/browse_view.png)
-![Search View](Screenshots/search_view.png)
-![Anime Detail View](Screenshots/anime_detail_view.png)
+| Browse View | Top Anime View | Anime Detail View |
+|-------------|-------------|-------------------|
+| ![Browse View](screenshots/browse_view.png) | ![Top Anime View](screenshots/top_anime_view.png) | ![Anime Detail View](screenshots/anime_detail_view.png) |
